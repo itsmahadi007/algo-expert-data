@@ -1,23 +1,25 @@
-class BinaryTreeNode:
+class BST:
     def __init__(self, data=None):
         self.data = data if data else None
-        self.leftChild = None
-        self.rightChild = None
+        self.left = None
+        self.right = None
 
 
 def insert(root, newValue):
     # if binary search tree is empty, create a new node and declare it as root
     if root is None:
-        root = BinaryTreeNode(newValue)
+        # print("root is none", newValue)
+        root = BST(newValue)
         return root
     # if newValue is less than value of data in root, add it to left subtree and proceed recursively
     if newValue < root.data:
-        root.leftChild = insert(root.leftChild, newValue)
+        # print(root.left, newValue, "left")
+        root.left = insert(root.left, newValue)
     else:
         # if newValue is greater than value of data in root, add it to right subtree and proceed recursively
-        root.rightChild = insert(root.rightChild, newValue)
+        # print(root.left, newValue, "left")
+        root.right = insert(root.right, newValue)
     return root
-
 
 def search(root, value):
     # node is empty
@@ -28,51 +30,54 @@ def search(root, value):
         return True
     # element to be searched is less than the current node
     elif root.data > value:
-        return search(root.leftChild, value)
+        return search(root.left, value)
     # element to be searched is greater than the current node
     else:
-        return search(root.rightChild, value)
-
+        return search(root.right, value)
 
 def inorder(self):
     if self is not None:
-        inorder(self.leftChild)
+        inorder(self.left)
         print(self.data, end=" ")
-        inorder(self.rightChild)
-
+        inorder(self.right)
 
 def minValueNode(node):
     current = node
-    while current.leftChild is not None:
-        current = current.leftChild
+    while current.left is not None:
+        current = current.left
     return current
 
+def maxValueNode(node):
+    current = node
+    while current.right is not None:
+        current = current.right
+    return current
 
 def delete(root, value):
     if root is None:
         return root
     if value < root.data:
-        root.leftChild = delete(root.leftChild, value)
+        root.left = delete(root.left, value)
     elif value > root.data:
-        root.rightChild = delete(root.rightChild, value)
+        root.right = delete(root.right, value)
     else:
         # if node to be deleted has no children
-        if root.leftChild is None and root.rightChild is None:
+        if root.left is None and root.right is None:
             root = None
         # if node to be deleted has only one child
-        elif root.leftChild is None:
+        elif root.left is None:
             temp = root
-            root = root.rightChild
+            root = root.right
             temp = None
-        elif root.rightChild is None:
+        elif root.right is None:
             temp = root
-            root = root.leftChild
+            root = root.left
             temp = None
         # if node to be deleted has two children
         else:
-            temp = minValueNode(root.rightChild)
+            temp = minValueNode(root.right)
             root.data = temp.data
-            root.rightChild = delete(root.rightChild, temp.data)
+            root.right = delete(root.right, temp.data)
     return root
 
 
@@ -87,3 +92,6 @@ insert(root, 78)
 print("53 is present in the binary tree:", search(root, 53))
 print("100 is present in the binary tree:", search(root, 100))
 inorder(root)
+print()
+print(minValueNode(root).data)
+print(maxValueNode(root).data)
