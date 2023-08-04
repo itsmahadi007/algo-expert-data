@@ -21,6 +21,7 @@ def insert(root, newValue):
         root.right = insert(root.right, newValue)
     return root
 
+
 def search(root, value):
     # node is empty
     if root is None:
@@ -35,11 +36,13 @@ def search(root, value):
     else:
         return search(root.right, value)
 
+
 def inorder(self):
     if self is not None:
         inorder(self.left)
         print(self.data, end=" ")
         inorder(self.right)
+
 
 def minValueNode(node):
     current = node
@@ -47,11 +50,13 @@ def minValueNode(node):
         current = current.left
     return current
 
+
 def maxValueNode(node):
     current = node
     while current.right is not None:
         current = current.right
     return current
+
 
 def delete(root, value):
     if root is None:
@@ -93,5 +98,4 @@ print("53 is present in the binary tree:", search(root, 53))
 print("100 is present in the binary tree:", search(root, 100))
 inorder(root)
 print()
-print(minValueNode(root).data)
-print(maxValueNode(root).data)
+print("Min Value", minValueNode(root).data, "Max Value", maxValueNode(root).data)
