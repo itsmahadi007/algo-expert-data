@@ -71,11 +71,9 @@ def delete(root, value):
             root = None
         # if node to be deleted has only one child
         elif root.left is None:
-            temp = root
             root = root.right
-            temp = None
         elif root.right is None:
-            temp = root
+            temp = root # this is usefull for c++, for python it has garbage management 
             root = root.left
             temp = None
         # if node to be deleted has two children
